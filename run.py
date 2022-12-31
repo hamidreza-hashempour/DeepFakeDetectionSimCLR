@@ -68,8 +68,7 @@ def get_simclr_pipeline_transform(size, s=1):
                                             transforms.RandomGrayscale(p=0.2),
                                             GaussianBlur(kernel_size=int(0.1 * size)),
                                             transforms.ToTensor()
-                                            # transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                                            ])
+                                             ])
     return data_transforms
 
 def main():
@@ -84,9 +83,6 @@ def main():
         args.device = torch.device('cpu')
         args.gpu_index = -1
 
-    # dataset = ContrastiveLearningDataset(args.data)
-
-    # train_dataset = dataset.get_dataset(args.dataset_name, args.n_views)
     transforms= ContrastiveLearningViewGenerator(get_simclr_pipeline_transform(100), args.n_views)
     new_dataset = DeepFakeClassifierDataset(mode="train",
                                         #    oversample_real=not args.no_oversample,
@@ -94,8 +90,8 @@ def main():
                                            fold=1,
                                            padding_part= 3 ,
                                            hardcore= False,
-                                           crops_dir= "D:/University And Papers/VESSL/dfdc_deepfake_challenge/data_root/crops",
-                                           data_path= "D:/University And Papers/VESSL/dfdc_deepfake_challenge/data_root",
+                                           crops_dir= "./data_root/crops",
+                                           data_path= "./data_root",
                                            label_smoothing= 0.01,
                                            folds_csv= "folds02.csv",
                                            transforms= transforms
@@ -106,9 +102,6 @@ def main():
                                        drop_last=True)
 
 
-    # train_loader = torch.utils.data.DataLoader(
-    #     train_dataset, batch_size=args.batch_size, shuffle=True,
-    #     num_workers=args.workers, pin_memory=True, drop_last=True)
 
     model = ResNetSimCLR(base_model=args.arch, out_dim=args.out_dim)
 
