@@ -1,4 +1,4 @@
-# PyTorch SimCLR: A Simple Framework for Contrastive Learning of Visual Representations
+# DeepFake SimCLR: A Framework for Contrastive Learning of DeepFakeDetection
 [![DOI](https://arxiv.org/abs/2002.05709)](https://arxiv.org/abs/2002.05709)
 
 
